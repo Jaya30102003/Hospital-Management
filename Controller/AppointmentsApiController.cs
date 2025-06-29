@@ -85,6 +85,11 @@ namespace HospitalManagementSystem.Controllers
             if (appointment == null)
                 return NotFound();
 
+            // Track original states
+            bool wasApproved = appointment.IsApproved;
+            bool wasCancelled = appointment.IsCancelled;
+
+            // Update
             appointment.TimeSlot = updated.TimeSlot;
             appointment.Reason = updated.Reason;
             appointment.Remarks = updated.Remarks;
@@ -93,7 +98,32 @@ namespace HospitalManagementSystem.Controllers
             appointment.IsApproved = updated.IsApproved;
             appointment.IsCancelled = updated.IsCancelled;
 
+            Console.WriteLine($"🧠 WasApproved: {wasApproved}, New: {updated.IsApproved}");
+Console.WriteLine($"🧠 WasCancelled: {wasCancelled}, New: {updated.IsCancelled}");
+
+
             await _context.SaveChangesAsync();
+
+            try
+            {
+                if (!wasApproved && appointment.IsApproved)
+                {
+                    await _notificationService.CreateForDoctor(id, "Appointment Approved.");
+                    await _notificationService.CreateForPatient(id, "Your appointment has been approved.");
+                }
+
+                if (!wasCancelled && appointment.IsCancelled)
+                {
+                    await _notificationService.CreateForDoctor(id, "Appointment Cancelled.");
+                    await _notificationService.CreateForPatient(id, "Your appointment has been cancelled.");
+                }
+
+                Console.WriteLine("📢 Update notifications sent if applicable.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Notification failed on update: {ex.Message}");
+            }
 
             return NoContent();
         }
