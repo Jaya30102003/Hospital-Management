@@ -1,34 +1,31 @@
-@page "{id:guid}"
+@page "{id}"
 @model HospitalManagementSystem.Pages.Patients.DetailsModel
+
 @{
     ViewData["Title"] = "Patient Details";
 }
 
-<h1>Patient Details</h1>
+<h2 class="mt-4">👤 Patient Details</h2>
 
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <tr>
-            <th>Full Name</th>
-            <td>@Model.Patient.Name</td>
-        </tr>
-        <tr>
-            <th>Age</th>
-            <td>@Model.Patient.Age</td>
-        </tr>
-        <tr>
-            <th>Gender</th>
-            <td>@Model.Patient.Gender</td>
-        </tr>
-        <tr>
-            <th>Phone</th>
-            <td>@Model.Patient.Phone</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>@Model.Patient.Email</td>
-        </tr>
-    </table>
-</div>
-
-<a asp-page="Index" class="btn btn-secondary">Back to List</a>
+@if (Model.Patient == null)
+{
+    <div class="alert alert-warning">Patient not found.</div>
+}
+else
+{
+    <div class="card mt-3 shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Patient.Name</h4>
+            <p class="card-text">
+                <strong>Patient ID:</strong> @Model.Patient.PatientId<br />
+                <strong>Gender:</strong> @Model.Patient.Gender<br />
+                @* <strong>Date of Birth:</strong> @Model.Patient.DOB.ToShortDateString()<br /> *@
+                <strong>Age:</strong> @Model.Patient.Age<br />
+                <strong>Email:</strong> @Model.Patient.Email<br />
+                <strong>Email:</strong> @Model.Patient.Phone<br />
+                @* <strong>Address:</strong> @Model.Patient.Address *@
+            </p>
+            <a asp-page="Index" class="btn btn-secondary mt-2">⬅ Back to List</a>
+        </div>
+    </div>
+}

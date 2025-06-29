@@ -219,3 +219,4 @@ C:\Users\u499129\Desktop\Hospital-Management-main\obj\Debug\net9.0\refint\Hospit
 C:\Users\u499129\Desktop\Hospital-Management-main\obj\Debug\net9.0\HospitalManagementSystem.pdb
 C:\Users\u499129\Desktop\Hospital-Management-main\obj\Debug\net9.0\HospitalManagementSystem.genruntimeconfig.cache
 C:\Users\u499129\Desktop\Hospital-Management-main\obj\Debug\net9.0\ref\HospitalManagementSystem.dll
+C:\Users\u499129\Desktop\Hospital-Management-main\obj\Debug\net9.0\HospitalManagementSystem.sourcelink.json
