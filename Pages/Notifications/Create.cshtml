@@ -1,0 +1,20 @@
+@page
+@model HospitalManagementSystem.Pages.Notifications.CreateModel
+@{
+    ViewData["Title"] = "Create Notification";
+}
+
+<h1>Create Notification</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Notification.Recipient"></label>
+        <select asp-for="Notification.Recipient" asp-items="Model.RoleOptions" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Notification.NotificationMessage"></label>
+        <textarea asp-for="Notification.NotificationMessage" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Send</button>
+    <a asp-page="Index" class="btn btn-secondary mt-3">Cancel</a>
+</form>

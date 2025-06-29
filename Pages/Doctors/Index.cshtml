@@ -1,0 +1,38 @@
+@page
+@model HospitalManagementSystem.Pages.Doctors.IndexModel
+
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<h1>Doctors</h1>
+
+<a asp-page="Create" class="btn btn-primary">Add Doctor</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Experience</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model.DoctorList)
+        {
+            <tr>
+                <td>@doc.Name</td>
+                <td>@doc.Specialization</td>
+                <td>@doc.Experience</td>
+                <td>@doc.Email</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@doc.DoctorID">Edit</a> |
+                    <a asp-page="Details" asp-route-id="@doc.DoctorID">Details</a> |
+                    <a asp-page="Delete" asp-route-id="@doc.DoctorID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

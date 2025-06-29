@@ -1,0 +1,59 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@model HospitalManagementSystem.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+@attribute [Authorize(Roles = "Admin")]
+
+
+<h1>Admin Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-header">Patients</div>
+            <div class="card-body text-primary">
+                <h5 class="card-title">@Model.PatientCount</h5>
+                <p class="card-text">Total Registered Patients</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-success mb-3">
+            <div class="card-header">Doctors</div>
+            <div class="card-body text-success">
+                <h5 class="card-title">@Model.DoctorCount</h5>
+                <p class="card-text">Total Doctors</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-warning mb-3">
+            <div class="card-header">Appointments Today</div>
+            <div class="card-body text-warning">
+                <h5 class="card-title">@Model.TodayAppointmentCount</h5>
+                <p class="card-text">Scheduled Appointments</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Recent Notifications</h3>
+@if (Model.RecentNotifications.Count == 0)
+{
+    <p>No recent notifications.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var note in Model.RecentNotifications)
+        {
+            <li class="list-group-item">
+                <strong>@note.Recipient:</strong> @note.NotificationMessage
+                <br />
+                <small class="text-muted">@note.CreatedAt.ToString("g")</small>
+            </li>
+        }
+    </ul>
+}

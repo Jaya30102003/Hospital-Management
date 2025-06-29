@@ -1,0 +1,42 @@
+@page
+@model HospitalManagementSystem.Pages.Notifications.IndexModel
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h2 class="mt-4 mb-3 text-primary">📬 Notifications</h2>
+
+@if (Model.NotificationList is null || !Model.NotificationList.Any())
+{
+    <div class="alert alert-info">No notifications available.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Recipient</th>
+                    <th>Recipient ID</th>
+                    <th>Title</th>
+                    <th>Message</th>
+                    <th>Created At</th>
+                    <th>Appointment ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var note in Model.NotificationList)
+                {
+                    <tr>
+                        <td>@note.Recipient</td>
+                        <td>@note.RecipientId</td>
+                        <td>@note.NotificationTitle</td>
+                        <td>@note.NotificationMessage</td>
+                        <td>@note.CreatedAt.ToString("g")</td>
+                        <td>@note.AppointmentId</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,59 @@
+@page
+@model HospitalManagementSystem.Pages.Appointments.IndexModel
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<h1>Appointments</h1>
+
+<a asp-page="Create" class="btn btn-primary">Book Appointment</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Appointments.Any())
+        {
+            foreach (var app in Model.Appointments)
+            {
+                var status = app.IsCancelled
+                    ? "Cancelled"
+                    : app.IsApproved
+                        ? "Approved"
+                        : "Pending";
+
+                var badgeClass = app.IsCancelled
+                    ? "badge bg-danger"
+                    : app.IsApproved
+                        ? "badge bg-success"
+                        : "badge bg-warning text-dark";
+
+                <tr>
+                    <td>@app.Patient?.Name</td>
+                    <td>@app.Doctor?.Name</td>
+                    <td>@app.TimeSlot.ToString("g")</td>
+                    <td>@app.Reason</td>
+                    <td><span class="@badgeClass">@status</span></td>
+                    <td>
+    <a asp-page="Approve" asp-route-id="@app.AppointmentId" class="btn btn-outline-success btn-sm me-1">Approve</a>
+    <a asp-page="Cancel" asp-route-id="@app.AppointmentId" class="btn btn-outline-warning btn-sm me-1">Cancel</a>
+    <a asp-page="Delete" asp-route-id="@app.AppointmentId" class="btn btn-outline-danger btn-sm">Delete</a>
+</td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6" class="text-center text-muted">No appointments found.</td></tr>
+        }
+    </tbody>
+</table>

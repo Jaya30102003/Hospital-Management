@@ -1,0 +1,97 @@
+@page
+@model HospitalManagementSystem.Pages.Appointments.CreateModel
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<h1>Book Appointment</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <strong>Form submission failed:</strong>
+        <ul>
+            @foreach (var entry in ViewData.ModelState)
+            {
+                foreach (var error in entry.Value.Errors)
+                {
+                    <li><strong>@entry.Key</strong>: @error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="Specialization">Specialization</label>
+        <select id="Specialization" class="form-control">
+            <option value="">-- Select Specialization --</option>
+            @foreach (var spec in Model.Specializations)
+            {
+                <option value="@spec">@spec</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Appointment.PatientId"></label>
+        <select asp-for="Appointment.PatientId" asp-items="Model.PatientList" class="form-control">
+            <option value="">-- Select Patient --</option>
+        </select>
+        <span asp-validation-for="Appointment.PatientId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Appointment.DoctorId"></label>
+        <select asp-for="Appointment.DoctorId" class="form-control" id="DoctorDropdown" name="Appointment.DoctorId">
+            <option value="">-- Select Doctor --</option>
+            @foreach (var doc in Model.DoctorList)
+            {
+                <option value="@doc.Value">@doc.Text</option>
+            }
+        </select>
+        <span asp-validation-for="Appointment.DoctorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Appointment.TimeSlot"></label>
+        <input asp-for="Appointment.TimeSlot" type="datetime-local" class="form-control" />
+        <span asp-validation-for="Appointment.TimeSlot" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Appointment.Reason"></label>
+        <input asp-for="Appointment.Reason" class="form-control" />
+        <span asp-validation-for="Appointment.Reason" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Appointment.Remarks"></label>
+        <textarea asp-for="Appointment.Remarks" class="form-control"></textarea>
+        <span asp-validation-for="Appointment.Remarks" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Save</button>
+    <a asp-page="Index" class="btn btn-secondary mt-3">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const allDoctors = @Html.Raw(Json.Serialize(Model.DoctorList));
+        document.getElementById("Specialization").addEventListener("change", function () {
+            const selected = this.value;
+            const dropdown = document.getElementById("DoctorDropdown");
+            dropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
+            allDoctors.forEach(doc => {
+                if (!selected || doc.text.includes(selected)) {
+                    const opt = document.createElement("option");
+                    opt.value = doc.value;
+                    opt.text = doc.text;
+                    dropdown.appendChild(opt);
+                }
+            });
+        });
+    </script>
+}

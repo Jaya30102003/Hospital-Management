@@ -1,0 +1,28 @@
+@page
+@model HospitalManagementSystem.Pages.Admin.RegisterDoctorModel
+@{
+    ViewData["Title"] = "Register Doctor";
+}
+
+<h1>Register New Doctor</h1>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-success">@Model.Message</div>
+}
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger">@Model.Error</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input asp-for="Password" class="form-control" type="password" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Register Doctor</button>
+</form>

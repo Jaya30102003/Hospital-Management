@@ -1,0 +1,75 @@
+﻿@page
+@model HospitalManagementSystem.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Welcome to Hospital Management System</h1>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card border-info mb-3">
+            <div class="card-header">Doctors</div>
+            <div class="card-body">
+                <h5>@Model.DoctorCount Doctors</h5>
+                <a class="btn btn-outline-info" asp-page="/Doctors/Index">View Doctors</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-info mt-2" asp-page="/Admin/RegisterDoctor">Add Doctor</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-success mb-3">
+            <div class="card-header">Patients</div>
+            <div class="card-body">
+                <h5>@Model.PatientCount Patients</h5>
+                <a class="btn btn-outline-success" asp-page="/Patients/Index">View Patients</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-success mt-2" asp-page="/Patients/Create">Add Patient</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-header">Appointments</div>
+            <div class="card-body">
+                <h5>@Model.AppointmentCount Appointments</h5>
+                <a class="btn btn-outline-primary" asp-page="/Appointments/Index">View Appointments</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-primary mt-2" asp-page="/Appointments/Create">Book Appointment</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card border-dark">
+                <div class="card-header">Notifications</div>
+                <div class="card-body">
+                    <a class="btn btn-dark" asp-page="/Notifications/Index">Manage Notifications</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-secondary">
+                <div class="card-header">Reports & Analytics</div>
+                <div class="card-body">
+                    <a class="btn btn-secondary" asp-page="/Reports/Analytics">View Analytics</a>
+                    <a class="btn btn-outline-secondary mt-2" asp-page="/Reports/Index">Manage Reports</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

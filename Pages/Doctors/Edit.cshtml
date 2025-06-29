@@ -1,0 +1,34 @@
+@page "{id}"
+@model HospitalManagementSystem.Pages.Doctors.EditModel
+@{
+    ViewData["Title"] = "Edit Doctor";
+}
+
+<h1>Edit Doctor</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Doctor.DoctorID" />
+    <div class="form-group">
+        <label asp-for="Doctor.Name"></label>
+        <input asp-for="Doctor.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Doctor.Specialization"></label>
+        <input asp-for="Doctor.Specialization" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Doctor.Email"></label>
+        <input asp-for="Doctor.Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Doctor.Password"></label>
+        <input asp-for="Doctor.Password" class="form-control" />
+    </div>
+    <div class="form-group">
+    <label asp-for="Doctor.DoctorID"></label>
+    <input asp-for="Doctor.DoctorID" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+    <a asp-page="Index" class="btn btn-secondary mt-3">Cancel</a>
+</form>
